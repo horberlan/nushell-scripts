@@ -1,5 +1,5 @@
 def show_image [folder_path: string, images: list<string>, current: int] {
-    # clear here or mount as a fixed content
+    # todo: clear here or mount as a fixed content
     kitty +kitten icat $"($images | get $current)"
 }
 
@@ -44,17 +44,9 @@ def main [args] {
 }
 
 def next [current: number, total: number] {
-    if $current == 0 {
-        print $"(ansi green)This is the first image in the directory.(ansi green)"
-    }
-
     if $current < $total - 1 { $current + 1 } else { 0 }
 }
 
 def previous [current: number, total: number] {
-    if $current == $total - 1 {
-        print $"(ansi red)This is the last image in the directory.(ansi red)"
-    }
-
     if $current > 0 { $current - 1 } else { $total - 1 }
 }
