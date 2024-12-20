@@ -31,22 +31,22 @@ def main [args] {
             match $key.code {
                 "up" => { rotate_image $folder_path $images $current 90 }
                 "down" => { rotate_image $folder_path $images $current -90 }
-                "right" => { $current = (next $current $total) }
-                "left" => { $current = (previous $current $total) }
+                "right" => { $current = (next_image $current $total) }
+                "left" => { $current = (prev_image $current $total) }
                 "q" => { break }
                 _ => { print "The key is definitely not mapped." }
             }
         }
     } else {
-        print $"Usage: ($nu.env.CURRENT_FILE) <folder_path>"
+        print $"Usage: ($nu.env.CURRENT_FILE) <folder_path>" #todo: remember to change this if reaaly needed btw...
         exit 1
     }
 }
 
-def next [current: number, total: number] {
+def next_image [current: number, total: number] {
     if $current < $total - 1 { $current + 1 } else { 0 }
 }
 
-def previous [current: number, total: number] {
+def prev_image [current: number, total: number] {
     if $current > 0 { $current - 1 } else { $total - 1 }
 }
