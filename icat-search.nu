@@ -1,6 +1,5 @@
 def show_image [folder_path: string, images: list<string>, current: int] {
-    # todo: clear here or mount as a fixed content
-    kitty +kitten icat $"($images | get $current)"
+    kitty +kitten icat --transfer-mode file --clear --silent $"($images | get $current)"
 }
 
 def rotate_image [folder_path: string, images: list<string>, current: int, angle: int] {
@@ -8,7 +7,14 @@ def rotate_image [folder_path: string, images: list<string>, current: int, angle
     magick $image_path "-rotate" $angle $image_path
 }
 
-# probabaly argumented with a list of strings
+def next_image [current: number, total: number] {
+    if $current < $total - 1 { $current + 1 } else { 0 }
+}
+
+def prev_image [current: number, total: number] {
+    if $current > 0 { $current - 1 } else { $total - 1 }
+}
+
 def main [args] {
     if ($args | length) == 1 {
         let folder_path = (
@@ -38,15 +44,7 @@ def main [args] {
             }
         }
     } else {
-        print $"Usage: ($nu.env.CURRENT_FILE) <folder_path>" #todo: remember to change this if reaaly needed btw...
+        print $"Usage: ($nu.env.CURRENT_FILE) <folder_path>"
         exit 1
     }
-}
-
-def next_image [current: number, total: number] {
-    if $current < $total - 1 { $current + 1 } else { 0 }
-}
-
-def prev_image [current: number, total: number] {
-    if $current > 0 { $current - 1 } else { $total - 1 }
 }
