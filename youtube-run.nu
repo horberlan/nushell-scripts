@@ -26,7 +26,7 @@ def is_ytm_running [] {
  
     if $count <= 0 {
         ^youtube-music-desktop-app &
-        sleep 1000ms
+        sleep 200ms
         let new_count = (ps | where name =~ "youtube-music-d" | length)
         $new_count > 0
     } else {
