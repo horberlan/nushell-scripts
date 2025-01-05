@@ -1,5 +1,5 @@
 def show_image [folder_path: string, images: list<string>, current: int] {
-    kitty +kitten icat --transfer-mode file --clear --silent $"($images | get $current)"
+    kitty +kitten icat --transfer-mode file --clear --silent --no-trailing-newline $"($images | get $current)"
 }
 
 def rotate_image [folder_path: string, images: list<string>, current: int, angle: int] {
@@ -15,6 +15,7 @@ def prev_image [current: number, total: number] {
     if $current > 0 { $current - 1 } else { $total - 1 }
 }
 
+# directory-type argument or file
 def main [args] {
     if ($args | length) == 1 {
         let folder_path = (
@@ -31,7 +32,7 @@ def main [args] {
         loop {
             show_image $folder_path $images $current
             
-            print $"($current)/($total - 1)"
+            print $"\r($current)/($total - 1)"
             
             let key = (input listen --types [key])
             match $key.code {
@@ -40,11 +41,8 @@ def main [args] {
                 "right" => { $current = (next_image $current $total) }
                 "left" => { $current = (prev_image $current $total) }
                 "q" => { break }
-                _ => { print "The key is definitely not mapped." }
+                _ => { print "Key not mapped." }
             }
         }
-    } else {
-        print $"Usage: ($nu.env.CURRENT_FILE) <folder_path>"
-        exit 1
     }
 }
