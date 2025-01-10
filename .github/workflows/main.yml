@@ -1,7 +1,18 @@
-- name: Setup Nu w/ plugins
-  uses: hustcer/setup-nu@v3
-  with:
-    features: full
-    check-latest: true
-    enable-plugins: true
-    github-token: ${{ secrets.TOKEN }}
+name: Setup Nu w/ plugins
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  setup-nu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Nu com plugins
+        uses: hustcer/setup-nu@v3
+        with:
+          features: full
+          check-latest: true
+          enable-plugins: true
+          github-token: ${{ secrets.TOKEN }}
