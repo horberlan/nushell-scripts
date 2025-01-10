@@ -5,8 +5,9 @@ def query_ollama [prompt: string, model: string = "llama3.2-vision:latest"] {
     prompt: $prompt,
     stream: false
   }
-  
-  let response = http post http://localhost:11434/api/generate --content-type application/json ($data | to json)
+  let query_ollama_url = "http://localhost:11434/api/generate"
+
+  let response = http post $query_ollama_url --content-type application/json ($data | to json)
   | from json
   
   if ($response | get error? | is-empty) {
