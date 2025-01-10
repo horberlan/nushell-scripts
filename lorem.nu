@@ -13,7 +13,7 @@ def lorem [
     ]
 
     let terminal_width = (term size).columns
-    let target_line_width = terminal_width * $line_width_ratio
+    let target_line_width = $terminal_width * $line_width_ratio
 
     let generated_words = (0..$word_count | each { |_| 
         $lorem_words | get (random int 0..($lorem_words | length | $in - 1))
