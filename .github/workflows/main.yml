@@ -1,0 +1,7 @@
+- name: Setup Nu w/ plugins
+  uses: hustcer/setup-nu@c6d9051e49681bbb7df7eddd473c04d8bbcef9e1
+  with:
+    features: full
+    check-latest: true
+    enable-plugins: true
+    github-token: ${{ github.token }}
